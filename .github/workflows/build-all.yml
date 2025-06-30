@@ -1,0 +1,131 @@
+name: Build All Firmware Variants
+
+on:
+  #pull_request:
+  #  branches:
+  #  - master
+  #  paths-ignore:
+  #  - config/**
+  #  - data/**
+  #  - docs/**
+  #  - '**/*.md'
+  push:
+    branches:
+    - master
+    paths-ignore:
+    - config/**
+    - data/**
+    - docs/**
+    - '**/*.md'
+
+jobs:
+  build:
+    name: Build
+    if: github.repository == 'knutwurst/Marlin-2-0-x-Anycubic-i3-MEGA-S'
+
+    runs-on: ubuntu-latest
+
+    strategy:
+       matrix:
+         platform:
+         # Knutwurst Base Environments
+         - MEGA_1G
+         - MEGA_1G_TMC
+         - MEGA_1G_BLT_10
+         - MEGA_1G_BLT_11
+         - MEGA_1G_TMC_BLT_10
+         - MEGA_1G_TMC_BLT_11
+         - MEGA
+         - MEGA_TMC
+         - MEGA_BLT_10
+         - MEGA_BLT_11
+         - MEGA_TMC_BLT_10
+         - MEGA_TMC_BLT_11
+         - MEGA_S
+         - MEGA_S_TMC
+         - MEGA_S_BLT_10
+         - MEGA_S_BLT_11
+         - MEGA_S_TMC_BLT_10
+         - MEGA_S_TMC_BLT_11
+         - MEGA_S_DGUS
+         - MEGA_S_DGUS_TMC
+         - MEGA_S_DGUS_BLT_10
+         - MEGA_S_DGUS_BLT_11
+         - MEGA_S_DGUS_TMC_BLT_10
+         - MEGA_S_DGUS_TMC_BLT_11
+         - MEGA_X
+         - MEGA_X_TMC
+         - MEGA_X_BLT_10
+         - MEGA_X_BLT_11
+         - MEGA_X_TMC_BLT_10
+         - MEGA_X_TMC_BLT_11
+         - MEGA_X_DGUS
+         - MEGA_X_DGUS_TMC
+         - MEGA_X_DGUS_BLT_10
+         - MEGA_X_DGUS_BLT_11
+         - MEGA_X_DGUS_TMC_BLT_10
+         - MEGA_X_DGUS_TMC_BLT_11
+         - MEGA_P_DGUS
+         - MEGA_P_DGUS_TMC
+         - MEGA_P_DGUS_BLT_10
+         - MEGA_P_DGUS_BLT_11
+         - MEGA_P_DGUS_TMC_BLT_10
+         - MEGA_P_DGUS_TMC_BLT_11
+         - CHIRON
+         - CHIRON_TMC
+         - CHIRON_DGUS
+         - CHIRON_DGUS_TMC
+         - 4MAXP2
+         - 4MAXP2_TMC
+         - 4MAXP2_BLT_10
+         - 4MAXP2_BLT_11
+         - 4MAXP2_TMC_BLT_10
+         - 4MAXP2_TMC_BLT_11
+         - 4MAXP2_DGUS
+         - 4MAXP2_DGUS_TMC
+         - 4MAXP2_DGUS_BLT_10
+         - 4MAXP2_DGUS_BLT_11
+         - 4MAXP2_DGUS_TMC_BLT_10
+         - 4MAXP2_DGUS_TMC_BLT_11
+
+    steps:
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10' # Version range or exact version of a Python version to use, using semvers version range syntax.
+        architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
+
+    - name: Install PlatformIO
+      run: |
+        pip install -U https://github.com/platformio/platformio-core/archive/develop.zip
+        platformio update
+
+    - name: Install PlatformIO dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install platformio
+    
+    - uses: actions/checkout@master
+
+    - name: Compile Firmware with PlatformIO
+      run: platformio run --environment ${{ matrix.platform }}
+
+    - name: Rename Output Files
+      run: |
+        CUSTOM_BUILD_VERSION=$(egrep -o "([0-9]{1,}\.)+[a-zA-Z0-9_.-]{1,}" Marlin/src/inc/Version.h -m2 | tail -n1) && \
+        mv .pio/build/${{ matrix.platform }}/firmware.hex .pio/build/${{ matrix.platform }}/${{ matrix.platform }}_v$CUSTOM_BUILD_VERSION.hex
+
+    #- name: Archive artifacts into single Files
+    #  uses: actions/upload-artifact@master
+    #  with:
+    #    name: Knutwurst_${{ matrix.platform }}
+    #    path: |
+    #     .pio/build/${{ matrix.platform }}/${{ matrix.platform }}_v*.hex
+
+    - name: Archive all artifacts into one ZIP file
+      uses: actions/upload-artifact@v3
+      with:
+        name: Knuwurst-all-in-one-${{github.sha}}
+        path: |
+         .pio/build/${{ matrix.platform }}/${{ matrix.platform }}_v*.hex
