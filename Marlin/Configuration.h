@@ -1406,38 +1406,38 @@
  */
 #if ENABLED(KNUTWURST_MEGA)
   #if ENABLED(KNUTWURST_BMG)
-    #define DEFAULT_MAX_FEEDRATE        { 500, 500, 6, 40 }
+    #define DEFAULT_MAX_FEEDRATE        { 200, 200, 5, 25 }
   #else
-    #define DEFAULT_MAX_FEEDRATE        { 500, 500, 6, 80 }
+    #define DEFAULT_MAX_FEEDRATE        { 200, 200, 5, 25 }
   #endif
 #endif
 
 #if ENABLED(KNUTWURST_MEGA_S)
-  #define DEFAULT_MAX_FEEDRATE          { 500, 500, 6, 40 } // same feedrate for BMG
+  #define DEFAULT_MAX_FEEDRATE          { 200, 200, 5, 25 } // same feedrate for BMG
 #endif
 
 #if ENABLED(KNUTWURST_MEGA_X)
   #if ENABLED(KNUTWURST_BMG)
-    #define DEFAULT_MAX_FEEDRATE        { 120, 120, 12, 40 } // correct for BMG?
+    #define DEFAULT_MAX_FEEDRATE        { 200, 200, 5, 25 } // correct for BMG?
   #else
-    #define DEFAULT_MAX_FEEDRATE        { 120, 120, 12, 60 } // thanks to Simon Geis
+    #define DEFAULT_MAX_FEEDRATE        { 200, 200, 5, 25 } // thanks to Simon Geis
   #endif
 #endif
 
 #if ENABLED(KNUTWURST_MEGA_P)
-  #define DEFAULT_MAX_FEEDRATE          { 500, 500, 6, 40 }
+  #define DEFAULT_MAX_FEEDRATE          { 200, 200, 5, 25 }
 #endif
 
 #if ENABLED(KNUTWURST_CHIRON)
   #if ENABLED(KNUTWURST_BMG)
-    #define DEFAULT_MAX_FEEDRATE        { 100, 100, 20, 40 }
+    #define DEFAULT_MAX_FEEDRATE        { 200, 200, 5, 25 }
   #else
-    #define DEFAULT_MAX_FEEDRATE        { 100, 100, 20, 60 }
+    #define DEFAULT_MAX_FEEDRATE        { 200, 200, 5, 25 }
   #endif
 #endif
 
 #if ENABLED(KNUTWURST_4MAXP2)
-  #define DEFAULT_MAX_FEEDRATE          { 150, 150, 18, 80 }
+  #define DEFAULT_MAX_FEEDRATE          { 200, 200, 5, 25 }
 #endif
 
 
@@ -1453,20 +1453,20 @@
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
 #if ANY(KNUTWURST_MEGA, KNUTWURST_MEGA_S, KNUTWURST_MEGA_P)
-  #define DEFAULT_MAX_ACCELERATION      { 3000, 2000,  60, 10000 }
+  #define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 100, 1000 }
 #endif
 
 #if ENABLED(KNUTWURST_MEGA_X)
-  #define DEFAULT_MAX_ACCELERATION      { 400, 400, 60, 10000 } // Original Values
-  // #define DEFAULT_MAX_ACCELERATION      { 2000, 1500, 60, 10000 }
+  #define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 100, 1000 } // Original Values
+  // #define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 100, 1000 }
 #endif
 
 #if ENABLED(KNUTWURST_CHIRON)
-  #define DEFAULT_MAX_ACCELERATION      { 350, 350, 50, 20000 }
+  #define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 100, 1000 }
 #endif
 
 #if ENABLED(KNUTWURST_4MAXP2)
-  #define DEFAULT_MAX_ACCELERATION      { 1500, 1500, 70, 15000 }
+  #define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 100, 1000 }
 #endif
 
 
@@ -1485,7 +1485,7 @@
  */
 
 #if ENABLED(KNUTWURST_MEGA)
-  #define DEFAULT_ACCELERATION          1500    // X, Y, Z and E acceleration for printing moves
+  #define DEFAULT_ACCELERATION          1000    // X, Y, Z and E acceleration for printing moves
   #if ENABLED(KNUTWURST_BMG)
     #define DEFAULT_RETRACT_ACCELERATION  1500    // E acceleration for retracts
   #else
@@ -1496,31 +1496,31 @@
 #endif
 
 #if ENABLED(KNUTWURST_MEGA_S)
-  #define DEFAULT_ACCELERATION          1500    // X, Y, Z and E acceleration for printing moves
-  #define DEFAULT_RETRACT_ACCELERATION  1500    // E acceleration for retracts
-  #define DEFAULT_TRAVEL_ACCELERATION   3000    // X, Y, Z acceleration for travel (non printing) moves
+  #define DEFAULT_ACCELERATION          1000    // X, Y, Z and E acceleration for printing moves
+  #define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
+  #define DEFAULT_TRAVEL_ACCELERATION   1000    // X, Y, Z acceleration for travel (non printing) moves
 #endif
 
 #if ENABLED(KNUTWURST_MEGA_X)
-  #define DEFAULT_ACCELERATION           400    // X, Y, Z and E acceleration for printing moves
+  #define DEFAULT_ACCELERATION           1000    // X, Y, Z and E acceleration for printing moves
   #define DEFAULT_RETRACT_ACCELERATION  3000    // E acceleration for retracts
   #define DEFAULT_TRAVEL_ACCELERATION    400    // X, Y, Z acceleration for travel (non printing) moves
 #endif
 
 #if ENABLED(KNUTWURST_MEGA_P)
-  #define DEFAULT_ACCELERATION          1500    // X, Y, Z and E acceleration for printing moves
+  #define DEFAULT_ACCELERATION          1000    // X, Y, Z and E acceleration for printing moves
   #define DEFAULT_RETRACT_ACCELERATION  1500    // E acceleration for retracts
   #define DEFAULT_TRAVEL_ACCELERATION   3000    // X, Y, Z acceleration for travel (non printing) moves
 #endif
 
 #if ENABLED(KNUTWURST_CHIRON)
-  #define DEFAULT_ACCELERATION           350    // X, Y, Z and E acceleration for printing moves
+  #define DEFAULT_ACCELERATION          1000    // X, Y, Z and E acceleration for printing moves
   #define DEFAULT_RETRACT_ACCELERATION  2000   // 3000    // E acceleration for retracts
   #define DEFAULT_TRAVEL_ACCELERATION    350    // X, Y, Z acceleration for travel (non printing) moves
 #endif
 
 #if ENABLED(KNUTWURST_4MAXP2)
-  #define DEFAULT_ACCELERATION           800    // X, Y, Z and E acceleration for printing moves
+  #define DEFAULT_ACCELERATION          1000    // X, Y, Z and E acceleration for printing moves
   #define DEFAULT_RETRACT_ACCELERATION  1500    // E acceleration for retracts
   #define DEFAULT_TRAVEL_ACCELERATION   1000    // X, Y, Z acceleration for travel (non printing) moves
 #endif
@@ -1536,8 +1536,8 @@
 #define CLASSIC_JERK
 #if ENABLED(CLASSIC_JERK)
   #if ANY(KNUTWURST_MEGA, KNUTWURST_MEGA_S, KNUTWURST_MEGA_P)
-    #define DEFAULT_XJERK  8.0
-    #define DEFAULT_YJERK  8.0
+    #define DEFAULT_XJERK 10.0
+    #define DEFAULT_YJERK 10.0
     #define DEFAULT_ZJERK  0.4
   #elif ENABLED(KNUTWURST_MEGA_X)
     #define DEFAULT_XJERK  4.0
@@ -1579,7 +1579,7 @@
  */
 #if DISABLED(CLASSIC_JERK)
   #if ANY(KNUTWURST_MEGA, KNUTWURST_MEGA_S, KNUTWURST_MEGA_P)
-    #define JUNCTION_DEVIATION_MM 0.013 // (mm) Distance from real junction edge
+    #define JUNCTION_DEVIATION_MM 0.08 // (mm) Distance from real junction edge
   #endif
 
   #if ENABLED(KNUTWURST_MEGA_X)
